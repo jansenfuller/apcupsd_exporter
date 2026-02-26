@@ -8,7 +8,7 @@ RUN go build ./cmd/apcupsd_exporter
 
 FROM gcr.io/distroless/static:nonroot AS runtime
 
-COPY --from=build /app/apcupsd_exporter .
+COPY --from=build /app/apcupsd_exporter /apcupsd_exporter
 
 WORKDIR /
 
