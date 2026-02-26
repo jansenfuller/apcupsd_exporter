@@ -6,14 +6,11 @@ COPY . .
 
 RUN go build ./cmd/apcupsd_exporter
 
-FROM alpine AS runtime
+FROM gcr.io/distroless/static:nonroot AS runtime
 
-COPY --from=build /app/apcupsd_exporter /apcupsd_exporter
-
-RUN adduser -u 1000 -D exporter && chmod o+x /apcupsd_exporter
+COPY --from=build /app/apcupsd_exporter .
 
 WORKDIR /
 
-USER exporter
 CMD ["/apcupsd_exporter"]
 
